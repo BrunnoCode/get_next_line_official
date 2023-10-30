@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/10/30 18:30:06 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:36:15 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 char	*get_next_line(int fd)
 {
-	char	*
+	char	*str_total;
+	char	*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+
+
 }
 
 int	main(void)
