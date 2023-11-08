@@ -6,61 +6,60 @@
 /*   By: bbotelho <bbotelho@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/06 13:26:22 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:20:30 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_lector(int fd)
+void	ft_lector(int fd, char **sto)
 {
-	char	*aux;
-	int	i;
-	i = 0;
-	int lector_bytes;
+	int	bytes;
 
-	lector_bytes = read(fd, lector_bytes, BUFFER_SIZE);
-	while(lector_bytes > i)
+	if (!(bytes = read(fd, *sto, BUFFER_SIZE) > 0))
 	{
-
+		free(*sto);
+		return ;
 	}
+	while (*sto != (char *)'\n' || *sto != (char *)'\0')
+	{
+		(sto++);
+	}
+	sto[bytes + 1] = 0;
 }
-
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static char	*storage;
 
-	if(BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
+	storage = NULL;
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
-	buf = malloc(BUFFER_SIZE * sizeof(char) + 1);
-	if (!buf)
-		return (0);
-	ft_lector(fd);
+	if (!(storage = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1)))
+		return (NULL);
+	ft_lector(fd, &storage);
+	if (!storage)
+		free(storage);
+	return (storage);
 }
 
-
-
-
-
-
-
-
-
-/*
 int	main(void)
 {
 	int		fd;
 	char	*line;
 
 	fd = open("test.txt", O_RDONLY);
+	if (fd == -1)
+		return (0);
 	do
 	{
 		line = get_next_line(fd);
-		if (!line)
-			return (0);
-		printf("%s", line);
+		if (line)
+		{
+			printf("%s", line);
+			free(line);
+		}
 	} while (line);
 	close(fd);
 	return (0);
-}*/
+}

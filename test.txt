@@ -1,5 +1,4 @@
-Hola buenos dias me llamo brunno y estoy
-todo el dia intentando resolver el facilisimo get next line vale,
-resulta que no se ni por donde empezar.
+tenho que ler um fd = algum numero do sistema ex: 3
+preciso de uma variavel estatica que seria o storage
+storage = onde falta por ler
 
-Es un desafio y tanto.
