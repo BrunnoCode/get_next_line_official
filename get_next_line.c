@@ -3,71 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbotelho <bbotelho@student.42barcel>       +#+  +:+       +#+        */
+/*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/08 19:36:39 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/11 00:09:02 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_join(char **line, char **sto)
+void	memoria(char **reservar)
 {
-	while(*sto != NULL)
-	{
-		*line = *sto;
-		line++;
-		sto++;
-	}
-}
+	int	i;
 
-int	str_len(char *sto)
-{
-	int i;
-
-	i = 0;
-	while(*sto != 0)
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	ft_lector(int fd, char **sto)
-{
-	int	bytes;
-	*sto[0] = '\0';
-
-	bytes = read(fd, *sto, BUFFER_SIZE); 
-	if(bytes < 0)
-	{
-		free(sto);
+	*reservar = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!*reservar)
 		return ;
-	}
-	while (*sto != (char *)'\n' && *sto != (char *)'\0')
+	i = 0;
+	while (i < BUFFER_SIZE)
 	{
-		sto++;
+		(*reservar)[i++] = '\0';
 	}
-	*sto[bytes] = 0;
+}
+
+// void	change(char **next, **line)
+// {
+
+// 	memoria(&res);
+// 	memoria(&line);
+
+// }
+void	lector(int *fd, int *n_bytes, char **next)
+{
+	if ((*n_bytes = read(*fd, *next, BUFFER_SIZE)) < 0)
+		return ;
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*storage = NULL;
-	char *line;
+	static char	*next = NULL;
+	char		*line;
+	int			n_bytes;
 
+	n_bytes = 0;
+	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
-	if (!(storage = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1)))
-		return (NULL);
-	ft_lector(fd, &storage);
-	if (!storage)
-		free(storage);
-	line = (char*)malloc(sizeof(char) * str_len(storage));
-		if(!line)
-			return(0);
-		ft_join(&line, &storage);
+	memoria(&next);
+	lector(&fd, &n_bytes, &next);
+	// change(&next, &line);
 	return (line);
 }
 
