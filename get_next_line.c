@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/11 00:09:02 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/11 09:33:48 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	memoria(char **reservar)
 	}
 }
 
-// void	change(char **next, **line)
+// void	change(char **next, char **line)
 // {
 
 // 	memoria(&res);
@@ -39,6 +39,20 @@ void	lector(int *fd, int *n_bytes, char **next)
 		return ;
 }
 
+void bucle(char **next, char **line, int* n_bytes, int* fd)
+{
+	int i;
+	memoria(*next);
+	lector(*fd, *n_bytes, *next);
+	if(*n_bytes == -1 || !(*next && line))
+			return ;
+	i = 0;
+	while((*next)[i++] != '\0' && (*next)[i] != '\n')
+	{
+		change(*next, *line);
+	}
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*next = NULL;
@@ -49,9 +63,8 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
-	memoria(&next);
-	lector(&fd, &n_bytes, &next);
-	// change(&next, &line);
+	bucle(&next, &line, &n_bytes, &fd);
+	
 	return (line);
 }
 
@@ -75,3 +88,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
+ char
