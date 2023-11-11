@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/11 09:33:48 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:28:46 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	lector(int *fd, int *n_bytes, char **next)
 		return ;
 }
 
-void bucle(char **next, char **line, int* n_bytes, int* fd)
+void bucle(char **next, char **line, int *n_bytes, int *fd)
 {
 	int i;
 	memoria(*next);
