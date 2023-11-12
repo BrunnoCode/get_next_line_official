@@ -6,73 +6,80 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/12 01:42:17 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:47:25 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*memoria(char **reservar, int *err)
+void	*memory(char **to_alocate, int *error)
 {
 	int	i;
 
-	*reservar = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!*reservar)
+	*to_alocate = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!*to_alocate)
 	{
-		*err = 1;
-		return ;
+		*error = 1;
+		return 0;
 	}
 	i = 0;
 	while (i < BUFFER_SIZE)
 	{
-		(*reservar)[i++] = '\0';
+		(*to_alocate)[i++] = '\0';
 	}
-	*err = 0;
+	*error = 0;
 }
 
-// void	change(char **next, char **line)
+// void	change(char **buff, char **line)
 // {
 
-// 	memoria(&res);
-// 	memoria(&line);
+// 	memory(&res);
+// 	memory(&line);
 
 // }
-void	*lector(int fd, int *n_bytes, char **next)
+void	*read_file(int fd, size_t *n_bytes, char **buff)
 {
+	n_bytes = (size_t*)read(fd, (*buff), BUFFER_SIZE);
 	if (*n_bytes < 0)
 	{
-		free(*next);
-		return ;
+		free(*buff);
+		return NULL;
 	}
+	
 }
 
-void bucle(char **next, char **line, int *n_bytes, int fd)
+void my_loop(char **buff, char **line, size_t *n_bytes, int fd)
 {
 	int i;
-	int	err;
+	int	error;
 	
-	memoria(next, &err);
-	if (err)
+	memory(buff, &error);
+	memory(line, &error);
+	if (error)
 		return ;
-	lector(fd, n_bytes, next);
+	read_file(fd, n_bytes, buff);
 	i = 0;
-	while((*next)[i++] != '\0' && (*next)[i] != '\n')
+	while(i++ < BUFFER_SIZE)
 	{
-		//change(*next, *line);
+		**line = **buff;
+		(*buff)++;
+		(*line)++;
 	}
+	(*line)[++i] = 0;
+	free((*buff));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*next = NULL;
+	static char	*buff = NULL;
 	char		*line;
-	int			n_bytes;
+	size_t			n_bytes;
 
 	n_bytes = 0;
 	line = NULL;
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 3)
 		return (NULL);
-	bucle(&next, &line, &n_bytes, fd);
+	my_loop(&buff, &line, &n_bytes, fd);
 	
 	return (line);
 }
