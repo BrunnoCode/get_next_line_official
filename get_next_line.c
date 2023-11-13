@@ -6,41 +6,54 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:42:36 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/13 14:11:06 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:38:44 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
-
-
-
-
-
-
-void	*ft_get_line(char *storage, char *final_line, int fd)
+int	file_read(char **storage, char **line, ssize_t *n_bytes, int fd)
 {
-	int n_bytes;
-	 if(!storage || !final_line)
-	 	return (NULL);
-	n_bytes = 0;
-	n_bytes = read(fd, storage, BUFFER_SIZE)
-	
-	
+	int i;
+	*n_bytes = read(fd, *storage, BUFFER_SIZE);
+	if(*n_bytes < BUFFER_SIZE)
+		return (0);
+	(*line) = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if(!(*line))
+	{
+		(*n_bytes) = -1;
+		free(*line);
+	}
+	i = 0;
+	while((*storage)[i] != '\0' || (*storage)[i] == '\n')
+	{
+		if(*storage[i] == '\n')
+			return (0);
+		(*line)[i] = (*storage)[i];
+		i++;
+	}
+	(*line)[++i] = '\0';
+	free(storage);
+	return (0);
 }
-
-
 
 char	*get_next_line(int fd)
 {
 	static	char *storage = NULL;
-	char *final_line;
+	char *line;
+	ssize_t	n_bytes;
 	
-	if(BUFFER_SIZE <=0 || fd != 3)
+	if(BUFFER_SIZE <=0 || fd < 0)
 		return (NULL);
-	ft_get_line(&storage, &final_line, fd);
-	if(!final_line)
+	n_bytes = 1;
+	while(!(n_bytes <= 0))
+	{
+		file_read(&storage, &line, &n_bytes, fd); 
+		
+	}
+	if(n_bytes <= 0)
 		return (NULL);
-	return (final_line);
+	if(*storage == '\n')
+		storage++;
+	return (line);
 }
