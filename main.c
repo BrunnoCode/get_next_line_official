@@ -1,16 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbotelho <bbotelho@student.42barcel>       +#+  +:+       +#+        */
+/*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 17:12:13 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/10/30 17:13:19 by bbotelho         ###   ########.fr       */
+/*   Created: 2023/11/13 12:44:42 by bbotelho          #+#    #+#             */
+/*   Updated: 2023/11/13 12:45:37 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// FUNCIONES DE AUXILIO
+int	main(void)
+{
+	int		fd;
+	char	*line;
 
+	fd = open("test.txt", O_RDONLY);
+	if (fd == -1)
+		return (0);
+	do
+	{
+		line = get_next_line(fd);
+		if (line)
+		{
+			printf("%s", line);
+			free(line);
+		}
+	} while (line);
+	close(fd);
+	return (0);
+}
