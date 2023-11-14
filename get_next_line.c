@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:42:36 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/14 17:16:30 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:06:10 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	*file_read(char **storage, char **line, int *n_bytes, int fd)
 {
+	
 	int i;
-	n_bytes = (int*)read(fd, *storage, BUFFER_SIZE);
+	(*n_bytes) = read(fd, *storage, BUFFER_SIZE);
+		
 	if(*n_bytes < BUFFER_SIZE)
 		return (NULL);
 	(*line) = malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -24,8 +26,9 @@ void	*file_read(char **storage, char **line, int *n_bytes, int fd)
 		(*n_bytes) = -1;
 		free(*line);
 	}
+	printf("storage -> %s\n", (*storage));
 	i = 0;
-	while((*storage)[i] != '\0' || (*storage)[i] == '\n')
+	while(*storage[i] != '\0' || *storage[i] == '\n')
 	{
 		if(*storage[i] == '\n')
 			return (NULL);
@@ -43,6 +46,7 @@ char	*get_next_line(int fd)
 	char *line;
 	int	n_bytes;
 	
+	storage = malloc(sizeof(char) * ( BUFFER_SIZE + 1));
 	if(BUFFER_SIZE <=0 || fd < 0)
 		return (NULL);
 	n_bytes = 1;
