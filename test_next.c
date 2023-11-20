@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/20 17:03:13 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:25:14 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 
 char    *str_join(char *storage, char *line)
 {
+    int i;
+    int j;
     char *res;
-    if(!storage || !line)
-        return (NULL);
+    
+   if(!storage)
+    { 
+        storage = malloc(sizeof(char) * 1);
+        if(!storage)
+            return (NULL);
+        storage[0] = '\0';
+    }
+    res = (char*)malloc((ft_length(storage) + 1) + ft_length(line) * sizeof(char));
+    if(!res)
+        return(my_free(&storage));
+    
     
 }
 
