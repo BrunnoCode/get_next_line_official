@@ -6,35 +6,88 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/16 22:25:52 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:03:13 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
-int   read_file(char **storage, char **line, int fd)
+char    *str_join(char *storage, char *line)
 {
-    int checkpoint;
-    *storage = malloc(sizeof(char) * (BUFFER_SIZE +1));
-    *line = malloc(sizeof(char) * (BUFFER_SIZE +1));
-    if(!*storage || !*line)
-    {
-        checkpoint = 0;
-        return (checkpoint);
-    }
-    if((read(fd, *storage, BUFFER_SIZE)) > 0)
-    {    
-        i = 0;
-         while((*storage) && (*storage) != '\n' )
-        {
-            (*line)++ = (*storage)++;
-            i++;
-        }
-        checkpoint  = i
-    }
-    return (0);  
+    char *res;
+    if(!storage || !line)
+        return (NULL);
+    
 }
+
+char    *ft_findnl(char *str)
+{
+    unsigned int i;
+    
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] == '\n')
+            return (&str[i]);
+        i++;
+    }
+    return (NULL);
+   
+}
+
+void    *my_free(char **str)
+{
+    free(*str);
+    *str = NULL;
+    return (NULL);
+}
+
+char    *ft_alloc(char *line)
+{
+    char *res;
+    int i;
+
+    res = (char *)malloc(sizeof(char) * ( BUFFER_SIZE + 1));
+    if(!res)
+        return (NULL);
+    while(*res)
+    {
+        res[i++] = '\0';
+    }
+    return (res);
+    
+}
+
+
+char    *read_file(char *storage, int fd)
+{
+    char *line;
+    int n_bytes;
+
+    line = ft_alloc(line);
+    if(!line)
+        return (my_free(&storage));
+    
+    n_bytes = 1;
+    while(n_bytes > 0 && !ft_findnl(line))
+    {
+        n_bytes = read(fd, line, BUFFER_SIZE);
+        if(n_bytes < 0)
+        {
+            free(line);
+            return(my_free(&storage));
+        }
+        else if(n_bytes > 0)
+        {
+            storage = str_join(storage, line);
+        }
+    }
+    free(line);
+    return (storage);
+}
+
+
+
 
 
 
@@ -42,17 +95,11 @@ char    *get_next_line(int fd)
 {
     static char *storage = NULL;
     char    *line;
-    int bolean;
     
     if(fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
+    storage = read_file(storage, fd); 
     
-    bolean = read_file(storage, line, fd);
-    if(!line || bolean == 0)
-    {
-        free(line);
-        free(storage);
-        return (NULL);
-    }
+   
     return (line);
 }
