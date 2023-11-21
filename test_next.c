@@ -6,11 +6,44 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/20 17:25:14 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:39:12 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void    *my_free(char **str)
+{
+    free(*str);
+    *str = NULL;
+    return (NULL);
+}
+
+char    *ft_alloc(char *line)
+{
+    int i;
+
+    line = (char *)malloc(sizeof(char) * ( BUFFER_SIZE + 1));
+    if(!line)
+        return (NULL);
+    while(*line)
+    {
+        line[i++] = '\0';
+    }
+    return (line);
+    
+}
+
+int ft_length(char *str)
+{
+    int i;
+
+    i = 0;
+    while(*str)
+        i++;
+    return (i);
+        
+}
 
 char    *str_join(char *storage, char *line)
 {
@@ -18,6 +51,7 @@ char    *str_join(char *storage, char *line)
     int j;
     char *res;
     
+    j = 0;
    if(!storage)
     { 
         storage = malloc(sizeof(char) * 1);
@@ -28,8 +62,14 @@ char    *str_join(char *storage, char *line)
     res = (char*)malloc((ft_length(storage) + 1) + ft_length(line) * sizeof(char));
     if(!res)
         return(my_free(&storage));
-    
-    
+    i = -1;
+    while(storage[++i] != '\0')
+        res[i] = storage[i];
+    while(line[j] != '\0')
+        res[i++] = line[j++];
+    res[i] = '\0';
+    free(storage);
+    return (res);
 }
 
 char    *ft_findnl(char *str)
@@ -47,28 +87,9 @@ char    *ft_findnl(char *str)
    
 }
 
-void    *my_free(char **str)
-{
-    free(*str);
-    *str = NULL;
-    return (NULL);
-}
 
-char    *ft_alloc(char *line)
-{
-    char *res;
-    int i;
 
-    res = (char *)malloc(sizeof(char) * ( BUFFER_SIZE + 1));
-    if(!res)
-        return (NULL);
-    while(*res)
-    {
-        res[i++] = '\0';
-    }
-    return (res);
-    
-}
+
 
 
 char    *read_file(char *storage, int fd)
@@ -76,6 +97,7 @@ char    *read_file(char *storage, int fd)
     char *line;
     int n_bytes;
 
+    line = NULL;
     line = ft_alloc(line);
     if(!line)
         return (my_free(&storage));
@@ -106,12 +128,12 @@ char    *read_file(char *storage, int fd)
 char    *get_next_line(int fd)
 {
     static char *storage = NULL;
-    char    *line;
+    //char    *line;
     
     if(fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
     storage = read_file(storage, fd); 
     
    
-    return (line);
+    return ("line");
 }
