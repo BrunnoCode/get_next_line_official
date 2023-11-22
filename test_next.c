@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/21 16:39:12 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:24:22 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int ft_length(char *str)
     int i;
 
     i = 0;
-    while(*str)
+    while(str[i] != '\0')
         i++;
     return (i);
         
@@ -59,7 +59,7 @@ char    *str_join(char *storage, char *line)
             return (NULL);
         storage[0] = '\0';
     }
-    res = (char*)malloc((ft_length(storage) + 1) + ft_length(line) * sizeof(char));
+    res = (char*)malloc(((ft_length(storage) + 1) + ft_length(line)) * sizeof(char));
     if(!res)
         return(my_free(&storage));
     i = -1;
@@ -120,6 +120,18 @@ char    *read_file(char *storage, int fd)
     return (storage);
 }
 
+char *ft_line(char *storage)
+{
+    char *line;
+    
+    int i;
+    if(!storage)
+        return(my_free(&storage));
+    
+    i = 0;
+    
+}
+
 
 
 
@@ -128,11 +140,12 @@ char    *read_file(char *storage, int fd)
 char    *get_next_line(int fd)
 {
     static char *storage = NULL;
-    //char    *line;
+    char    *line;
     
     if(fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
     storage = read_file(storage, fd); 
+    line = ft_line(storage);
     
    
     return ("line");
