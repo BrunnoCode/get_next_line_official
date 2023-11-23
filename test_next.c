@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/22 16:24:22 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:24:59 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,21 @@ char *ft_line(char *storage)
     char *line;
     
     int i;
+    line = NULL;
     if(!storage)
         return(my_free(&storage));
-    
-    i = 0;
+    i = ft_length(storage);
+    line = malloc(sizeof(char) * (i + 1));
+    if(!line)
+    {
+        my_free(&line);
+        my_free(&storage);
+        return (NULL);
+    }
+    line[i++] = '\0';
+    while((*storage) != '\0' && (*storage) != '\n')
+        (*line++) = (*storage++);
+    return (line);
     
 }
 
