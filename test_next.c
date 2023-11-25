@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/24 16:26:08 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:40:31 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,6 @@ char    *ft_findnl(char *str)
 }
 
 
-
-
-
-
 char    *read_file(char *storage, int fd)
 {
     char *line;
@@ -138,15 +134,17 @@ char *ft_line(char *storage)
         return (NULL);
     }
     j = 0;
-    while(i > j++)
-        line[j] = storage[j];
+    while(i > j && storage[j] != '\n')
+    {
+         line[j] = storage[j];
+         j++;
+    }
+    line[j] = '\0';
+    free(storage);
     
     return (line);
     
 }
-
-
-
 
 
 
@@ -161,5 +159,5 @@ char    *get_next_line(int fd)
     line = ft_line(storage);
     
    
-    return ("line");
+    return (line);
 }
