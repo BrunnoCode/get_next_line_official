@@ -6,18 +6,18 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/26 00:54:29 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/26 11:19:14 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void    *my_free(char **str)
-{
-    free(*str);
-    *str = NULL;
-    return (NULL);
-}
+// void    *my_free(char **str)
+// {
+//     free(*str);
+//     *str = NULL;
+//     return (NULL);
+// }
 
 
 int ft_length(char *str)
@@ -64,7 +64,10 @@ char    *str_join(char *storage, char *line)
     }
     res = (char*)malloc(((ft_length(storage) + 1) + ft_length(line)) * sizeof(char));
     if(!res)
-        return(my_free(&storage));
+    {  
+        free(res);
+        return(NULL);
+    }
     i = -1;
     while(storage[++i] != '\0')
         res[i] = storage[i];
@@ -99,7 +102,10 @@ char    *read_file(char *storage, int fd)
     line = NULL;
     line = ft_alloc(line);
     if(!line)
-        return (my_free(&storage));
+    {   
+        free(line);
+        return (NULL);
+    }
     
     n_bytes = 1;
     while(n_bytes > 0 && !ft_findnl(line))
@@ -108,7 +114,7 @@ char    *read_file(char *storage, int fd)
         if(n_bytes < 0)
         {
             free(line);
-            return(my_free(&storage));
+            return (NULL);
         }
         else if(n_bytes > 0)
         {
@@ -127,13 +133,14 @@ char *ft_line(char *storage)
     
     line = NULL;
     if(!storage)
-        return(my_free(&storage));
+    {  
+        return(NULL);
+    }
     i = ft_length(storage);
     line = (char *)malloc(sizeof(char) * (i + 1));
     if(!line)
     {
         free(line);
-        my_free(&storage);
         return (NULL);
     }
     j = 0;
@@ -142,7 +149,6 @@ char *ft_line(char *storage)
          line[j] = storage[j];
          j++;
     }
-    free(storage);
     
     return (line);
 }
