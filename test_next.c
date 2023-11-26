@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/25 16:40:31 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/26 00:54:29 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,6 @@ void    *my_free(char **str)
     return (NULL);
 }
 
-char    *ft_alloc(char *line)
-{
-    int i;
-
-    line = (char *)malloc(sizeof(char) * ( BUFFER_SIZE + 1));
-    if(!line)
-        return (NULL);
-    while(*line)
-    {
-        line[i++] = '\0';
-    }
-    return (line);
-    
-}
 
 int ft_length(char *str)
 {
@@ -44,6 +30,23 @@ int ft_length(char *str)
     return (i);
         
 }
+
+char    *ft_alloc(char *line)
+{
+    int i;
+
+    line = (char *)malloc(sizeof(char) * ( BUFFER_SIZE + 1));
+    if(!line)
+        return (NULL);
+    i = ft_length(line);
+    while(0 < i--)
+    {
+        line[i] = '\0';
+    }
+    return (line);
+    
+}
+
 
 char    *str_join(char *storage, char *line)
 {
@@ -134,16 +137,14 @@ char *ft_line(char *storage)
         return (NULL);
     }
     j = 0;
-    while(i > j && storage[j] != '\n')
+    while(storage[j] != '\0' && storage[j] != '\n')
     {
          line[j] = storage[j];
          j++;
     }
-    line[j] = '\0';
     free(storage);
     
     return (line);
-    
 }
 
 

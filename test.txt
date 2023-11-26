@@ -1,4 +1,5 @@
-tenho que ler um fd = algum numero do sistema ex: 3
-preciso de uma variavel estatica que seria o storage
-storage = onde falta por ler
+get next line
+nao é facil
+vamos fazer
+muito bem.
 
