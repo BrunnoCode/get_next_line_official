@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/26 11:19:14 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:35:34 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,10 @@ int ft_length(char *str)
 
 char    *ft_alloc(char *line)
 {
-    int i;
-
     line = (char *)malloc(sizeof(char) * ( BUFFER_SIZE + 1));
     if(!line)
         return (NULL);
-    i = ft_length(line);
-    while(0 < i--)
-    {
-        line[i] = '\0';
-    }
-    return (line);
-    
+    return (line);   
 }
 
 
@@ -62,7 +54,7 @@ char    *str_join(char *storage, char *line)
             return (NULL);
         storage[0] = '\0';
     }
-    res = (char*)malloc(((ft_length(storage) + 1) + ft_length(line)) * sizeof(char));
+    res = (char*)malloc((ft_length(storage) + (ft_length(line) + 1)) * sizeof(char));
     if(!res)
     {  
         free(res);
@@ -74,7 +66,6 @@ char    *str_join(char *storage, char *line)
     while(line[j] != '\0')
         res[i++] = line[j++];
     res[i] = '\0';
-    free(storage);
     return (res);
 }
 
@@ -143,16 +134,24 @@ char *ft_line(char *storage)
         free(line);
         return (NULL);
     }
-    j = 0;
-    while(storage[j] != '\0' && storage[j] != '\n')
-    {
-         line[j] = storage[j];
-         j++;
-    }
-    
+    j = -1;
+    while(storage[++j] != '\0')// && storage[j] != '\n')
+	{
+		line[j] = storage[j];
+		if(storage[j] == '\n')
+			j++;
+	}
+	line[j] = '\0';
     return (line);
 }
 
+void	move_storage(char **storage)
+{
+	while(*(*storage) != '\n')
+		(*storage)++;
+	if(*(*storage) == '\n')
+		(*storage)++;
+}
 
 
 char    *get_next_line(int fd)
@@ -164,7 +163,6 @@ char    *get_next_line(int fd)
         return (NULL);
     storage = read_file(storage, fd); 
     line = ft_line(storage);
-    
-   
+	move_storage(&storage);
     return (line);
 }
