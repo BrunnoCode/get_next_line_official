@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_antes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:51:31 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/13 12:25:30 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:29:49 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,16 @@ int	memory(char **to_alocate, int *error)
 	}
 	else 
 		return (1);
-	
+	return(0);
 }
 
-// void	change(char **buff, char **line)
-// {
-
-// 	memory(&res);
-// 	memory(&line);
-
-// }
-void	*read_file(int fd, size_t *n_bytes, char **buff)
+void	read_file(int fd, size_t *n_bytes, char **buff)
 {
-	int i;
 	n_bytes = (size_t*)read(fd, (*buff), BUFFER_SIZE);
 	if (*(n_bytes) < 0)
 	{
 		free((*buff));
-		return NULL;
 	}
-	i = 0;
-	// while((*buff)[i] != '\n')
-	// {
-		
-	// }
-	
 }
 
 void my_loop(char **buff, char **line, size_t *n_bytes, int fd)

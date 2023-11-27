@@ -6,18 +6,26 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/26 22:35:34 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:01:04 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// void    *my_free(char **str)
-// {
-//     free(*str);
-//     *str = NULL;
-//     return (NULL);
-// }
+void    *my_free(char **str, char **str2)
+{
+    if(*str && str)
+    {
+        free(*str);
+        *str = NULL;
+    }
+     if(*str2 && str2)
+    {
+        free(*str2);
+        *str2 = NULL;
+    }  
+    return (NULL);
+}
 
 
 int ft_length(char *str)
@@ -47,22 +55,16 @@ char    *str_join(char *storage, char *line)
     char *res;
     
     j = 0;
-   if(!storage)
-    { 
-        storage = malloc(sizeof(char) * 1);
-        if(!storage)
-            return (NULL);
-        storage[0] = '\0';
-    }
     res = (char*)malloc((ft_length(storage) + (ft_length(line) + 1)) * sizeof(char));
     if(!res)
-    {  
-        free(res);
-        return(NULL);
-    }
-    i = -1;
-    while(storage[++i] != '\0')
+        return(my_free(&line, &storage));
+    i = 0;
+    while(storage[i] != '\0')
+    {
         res[i] = storage[i];
+        i++;
+    }
+        
     while(line[j] != '\0')
         res[i++] = line[j++];
     res[i] = '\0';
@@ -103,14 +105,9 @@ char    *read_file(char *storage, int fd)
     {
         n_bytes = read(fd, line, BUFFER_SIZE);
         if(n_bytes < 0)
-        {
-            free(line);
-            return (NULL);
-        }
+            return (my_free(&line, &storage));
         else if(n_bytes > 0)
-        {
             storage = str_join(storage, line);
-        }
     }
     free(line);
     return (storage);
@@ -161,6 +158,13 @@ char    *get_next_line(int fd)
     
     if(fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
+   if(!storage)
+    { 
+        storage = malloc(sizeof(char) * 1);
+        if(!storage)
+            return (NULL);
+        storage[0] = '\0';
+    }
     storage = read_file(storage, fd); 
     line = ft_line(storage);
 	move_storage(&storage);
