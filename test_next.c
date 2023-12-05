@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/05 14:45:03 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:41:51 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*str_join(char *storage, char *line)
 	j = -1;
 	while (line[++j] != '\0')
 		res[i + j] = line[j];
-	res[i] = '\0';
+	res[i + (++j)] = '\0';
 	return (res);
 }
 
@@ -125,13 +125,13 @@ char	*ft_line(char *storage)
 		return (NULL);
 	}
 	j = -1;
-	while (storage[++j] != '\0') // && storage[j] != '\n')
+	while (storage[++j] != '\0' && storage[j - 2] != '\n') // && storage[j] != '\n')
 	{
 		line[j] = storage[j];
 		if (storage[j] == '\n')
 			j++;
 	}
-	line[j] = '\0';
+	line[j - 1] = '\0';
 	return (line);
 }
 
@@ -145,10 +145,9 @@ void	move_storage(char **storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage = NULL;
 	char		*line;
 
-	storage = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!storage)
