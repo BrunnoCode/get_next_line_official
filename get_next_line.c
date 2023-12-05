@@ -5,57 +5,108 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 12:42:36 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/11/19 21:51:32 by bbotelho         ###   ########.fr       */
+/*   Created: 2023/12/05 12:37:46 by bbotelho          #+#    #+#             */
+/*   Updated: 2023/12/05 12:37:51 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	file_read(char **storage, char **line, int *n_bytes, int fd)
+char	*true_free(char **ptr)
 {
-	int i;
-	(*n_bytes) = read(fd, *storage, BUFFER_SIZE);
-		
-	if(*n_bytes < BUFFER_SIZE)
-		return (0);
-	(*line) = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if(!(*line))
-	{
-		(*n_bytes) = -1;
-		free(*line);
-	}
+	free(*ptr);
+	*ptr = NULL;
+	return (NULL);
+}
+
+char	*update_storage(char *storage)
+{
+	char	*new_storage;
+	int		i;
+
 	i = 0;
-	while(*n_bytes == BUFFER_SIZE)
+	if (!storage)
+		return (NULL);
+	while (storage[i] != '\n' && storage[i] != '\0')
+		i++;
+	i++;
+	new_storage = ft_substr(storage, i, ft_strlen(storage));
+	free(storage);
+	return (new_storage);
+}
+
+char	*fill_storage(int fd, char *storage)
+{
+	int		num_bytes;
+	char	*buffer;
+
+	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
+		return (true_free(&storage));
+	buffer[0] = '\0';
+	num_bytes = 1;
+	while (num_bytes > 0 && !ft_strchr(buffer, '\n'))
 	{
-		if((*storage)[i] != '\n' && i < *n_bytes)
+		num_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (num_bytes == -1)
 		{
-			(*line)[i] = (*storage)[i];
-			i++;
+			free(buffer);
+			return (true_free(&storage));
+		}
+		if (num_bytes > 0)
+		{
+			buffer[num_bytes] = '\0';
+			storage = ft_strjoin(storage, buffer);
 		}
 	}
-	return (0);
+	free(buffer);
+	return (storage);
+}
+
+char	*only_line(char	*storage)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	if (!storage)
+		return (NULL);
+	while (storage[i] != '\n' && storage[i] != '\0')
+		i++;
+	i++;
+	line = ft_substr(storage, 0, i);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static	char *storage = NULL;
-	char *line;
-	int	n_bytes;
-	
-	storage = malloc(sizeof(char) * ( BUFFER_SIZE + 1));
-	if(!storage)
+	static char	*storage = NULL;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if(BUFFER_SIZE <=0 || fd < 0)
+	storage = fill_storage(fd, storage);
+	if (!storage)
 		return (NULL);
-	n_bytes = 1;
-	while(n_bytes > 0 && *storage != '\n')
+	line = only_line(storage);
+	if (!line)
 	{
-		file_read(&storage, &line, &n_bytes, fd); 
+		return (true_free(&storage));
 	}
-	if(n_bytes <= 0 || !line)
-		return (NULL);
-	if(*storage == '\n')
-		storage++;
+	storage = update_storage(storage);
 	return (line);
+}
+
+int main()
+{
+	int fd;
+	char	*line;
+
+	fd = open("text.t", O_RDONLY);
+	while ((line = get_next_line(fd)) != NULL)
+	{
+			printf("%s\n", line);
+			free(line);
+	}
+	return (0);
 }
