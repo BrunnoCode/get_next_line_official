@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:20:38 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/06 19:38:19 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:01:01 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,54 @@ void    ft_trialloc(char **storage, int *error)
 {
     int i;
     
-    *storage = malloc(sizeof(char) * (BUFFER_SIZE + 1))
+    *storage = malloc(sizeof(char) * (BUFFER_SIZE + 1));
     if(!*storage)
     {
-        free(*storage)
-        *storage = NULL;
+        free(*storage);
+        storage = NULL;
         *error = -1;
     }
     else
     {
         i = BUFFER_SIZE + 1;
         while(0 < i)
-            *storage[i--] = '\0';
+        {   
+            (*storage)[i] = '\0';
+            i--;
+        }
     }
+}
+
+void    byte_alloc(char *line, int *error)
+{
+    line = malloc(sizeof(char));
+    if(!line)
+     {
+        free(line);
+        *error = -1;
+     }   
 }
 
 void    ft_fill_line(char **line, char **storage, int *error)
 {
     if(NULL != *storage) //SE *STORAGE APUNTE A EJ: *HO\nLA | QUE HAREMOS?
     {
-        *storage[error] = '\0';
-        while(*(*storage) != '\n' && *(*storage) != '\0')
+        (*storage)[*error] = '\0';
+        while(*(*storage - 1) != '\n' && *(*storage) != '\0')
         {
-            // FALTA ALOCAR MEMORIA A LINE BYTE A BYTE
+            // ALOCAR MEMORIA A LINE BYTE A BYTE
+            byte_alloc((*line + 1), error);
             *(*line)++ = *(*storage)++;
+            
         }
+        /*
         if(*(*storage) == '\n')
         {
+            (*storage)++;
             *++(*line) = malloc(sizeof(char) + 1);
             *(*line) = '\n';
             *++(*line) = '\0';
-        }
+        }*/
     }    
 }
 
@@ -55,7 +72,7 @@ void    ft_reading(int fd, char **storage, char **line, int *error)
     *error = 1;
     while(*error > 0)
     {   
-        *error = read(fd, *storage, BUFFER_SIZE);
+        *error = (int)read(fd, *storage, BUFFER_SIZE);
         if(*storage != NULL && *error != -1)
                 ft_fill_line(line, storage, error);
     }
