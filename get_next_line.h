@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:34:15 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/08 03:50:28 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:19:01 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_list
+/*typedef struct s_list
 {
 	char			*str_buf;
 	struct s_list	*next;
 }					t_list;
+*/
 
 char				*get_next_line(int fd);
 

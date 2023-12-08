@@ -3,14 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   final.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbotelho <bbotelho@student.42barcel>       +#+  +:+       +#+        */
+/*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 02:46:38 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/08 03:50:18 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/08 09:52:13 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void polish_list(t_list **list)
+{
+    t_list *current = *list;
+    t_list *next;
+
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current->str_buf);
+        free(current);
+        current = next;
+    }
+
+    *list = NULL;
+}
+
+t_list *find_last_node(t_list *list)
+{
+    if (list == NULL)
+        return NULL;
+
+    while (list->next != NULL)
+        list = list->next;
+
+    return list;
+}
+
+// Função para verificar se há uma quebra de linha em uma lista
+int found_newline(t_list *list)
+{
+    while (list != NULL)
+    {
+        int i = 0;
+        while (list->str_buf[i] != '\0')
+        {
+            if (list->str_buf[i] == '\n')
+                return 1;
+            i++;
+        }
+        list = list->next;
+    }
+
+    return 0;
+}
+
 
 void	copy_str(t_list *list, char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:21:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/05 19:41:51 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:40:41 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_length(char *str)
 
 char	*ft_alloc(char *line)
 {
-	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	line = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!line)
 		return (NULL);
 	return (line);
@@ -63,22 +63,22 @@ char	*str_join(char *storage, char *line)
 	j = -1;
 	while (line[++j] != '\0')
 		res[i + j] = line[j];
-	res[i + (++j)] = '\0';
+	res[i + j] = '\0';
 	return (res);
 }
 
-char	*ft_findnl(char *str)
+int	ft_findnl(char *str)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\n')
-			return ((char *)&str[i]);
+			return (1);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*read_file(char *storage, int fd)
@@ -125,22 +125,14 @@ char	*ft_line(char *storage)
 		return (NULL);
 	}
 	j = -1;
-	while (storage[++j] != '\0' && storage[j - 2] != '\n') // && storage[j] != '\n')
+	while (storage[++j] != '\0' && storage[j - 1] != '\n') // && storage[j] != '\n')
 	{
 		line[j] = storage[j];
 		if (storage[j] == '\n')
 			j++;
 	}
-	line[j - 1] = '\0';
+	line[j] = '\0';
 	return (line);
-}
-
-void	move_storage(char **storage)
-{
-	while (*(*storage) != '\n')
-		(*storage)++;
-	if (*(*storage) == '\n')
-		(*storage)++;
 }
 
 char	*get_next_line(int fd)
@@ -159,6 +151,5 @@ char	*get_next_line(int fd)
 	}
 	storage = read_file(storage, fd);
 	line = ft_line(storage);
-	move_storage(&storage);
 	return (line);
 }
