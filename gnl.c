@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 22:50:56 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/08 01:04:23 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:22:10 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,21 @@ void      mem(char **buff, int *check)
 char    *linejoin(char *line, char *buff, int *check)
 {
    int  i;
-   int  j;
-   
+   int  temp;
+   char *res;
    mem(*line, *check);
-   i = ft_length()
+   res = malloc(sizeof(char) * (ft_length(*line) + ft_length(*buff)) + 1);
+   if(!res)
+   {
+        free(res);
+        return (NULL);
+   }
+   i = 0;
+   while(*buff[i] && *line[i] != '\0')
+     *line[i] = *buff[i++];
+
+   
+   
 }
 
 void    read_line(int fd, char **line, char **buff, int *check)
@@ -42,7 +53,7 @@ void    read_line(int fd, char **line, char **buff, int *check)
 char    *get_next_line(int fd)
 {
     static char    *buff = NULL;
-    static char *line;
+    char *line;
     int check;
     
     line = NULL;
