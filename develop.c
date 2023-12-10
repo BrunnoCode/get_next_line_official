@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:02 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/09 17:11:47 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:35:35 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char    *develop(int fd)
     ssize_t read_check;
     
     read_check = 1;
-    if(fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
         return (NULL);
     buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
     if (!buffer)
@@ -28,8 +28,6 @@ char    *develop(int fd)
     while(read_check < 0 && !foundnl(buffer))
     {
         read_check = read(fd, buffer, (BUFFER_SIZE + 1));
-        tmp = read_join(tmp, buffer, &read_check);
-        
-            
+        tmp = read_join(buffer, &read_check);  
     }
 }
