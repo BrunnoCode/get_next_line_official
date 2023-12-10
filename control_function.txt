@@ -5,3 +5,9 @@
 3: read_join(char *buffer, int *read_check) funcao que concatena strings ja lidas do buffer e detecta erro devolvendo read_check -1
 
 4: special_free(char *s1, char *s2) funcao void que libera memoria devido a erro.
+
+
+
+RESUMO DAS ATUALIZACOES
+
+Criamos um loop que faz leitura continua e verifica se foi detectado um salto de linha dentro da variável buffer que é passado como parametro na funcao read, a funcao foundnl() devolve 1 caso houver salto de linha, entao o loop quebra, mas sabemos que entre os caracteres lidos dentro de buffer pode haver \n bem ao meio, entao devemos criar uma funcao que trate esta leitura, será como o primeiro loop.

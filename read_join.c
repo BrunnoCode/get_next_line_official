@@ -14,5 +14,6 @@ char    *read_join(char *buffer, int *read_check)
             return (NULL);
         }
      }
+     free(buffer);
      return (NULL);
 }

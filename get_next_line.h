@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:34:15 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/09 15:36:00 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:59:11 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@
 
 //char				*get_next_line(int fd);
 char				*develop(int fd);
+void	special_free(char **ptr, char **ptr2);
 
 #endif
