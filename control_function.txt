@@ -1,0 +1,7 @@
+1: develop(int fd) funcao principal que será GNL original
+
+2: foundnl(char *buffer) funcao que detecta salto de linha
+
+3: read_join(char *buffer, int *read_check) funcao que concatena strings ja lidas do buffer e detecta erro devolvendo read_check -1
+
+4: special_free(char *s1, char *s2) funcao void que libera memoria devido a erro.
