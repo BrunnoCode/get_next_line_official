@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:34:15 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/10 19:59:11 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:35:45 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-/*typedef struct s_list
-{
-	char			*str_buf;
-	struct s_list	*next;
-}					t_list;
-*/
-
-//char				*get_next_line(int fd);
-char				*develop(int fd);
+// char				*get_next_line(int fd);
+char	*develop(int fd);
 void	special_free(char **ptr, char **ptr2);
+int		foundnl(char *buffer);
+int		ft_len(char *str, int *read_check);
 
 #endif

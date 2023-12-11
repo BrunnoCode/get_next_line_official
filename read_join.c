@@ -1,12 +1,12 @@
 #include "get_next_line"
 
-char    *read_join(char *buffer, int *read_check)
+char    *read_join(char *line, char *buffer, int *read_check)
 {
     char    *res;
 
      if (read_check >= 0 && buffer)
      {
-        res = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+        res = malloc(sizeof(char) * (ft_len(line, read_check) + ft_len(buffer, read_check) + 1));
         if (!res)
         {
             read_check = -1;
@@ -15,5 +15,6 @@ char    *read_join(char *buffer, int *read_check)
         }
      }
      free(buffer);
+     free(tmp);
      return (NULL);
 }
