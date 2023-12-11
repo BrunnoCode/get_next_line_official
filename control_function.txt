@@ -11,3 +11,10 @@
 RESUMO DAS ATUALIZACOES
 
 Criamos um loop que faz leitura continua e verifica se foi detectado um salto de linha dentro da variável buffer que é passado como parametro na funcao read, a funcao foundnl() devolve 1 caso houver salto de linha, entao o loop quebra, mas sabemos que entre os caracteres lidos dentro de buffer pode haver \n bem ao meio, entao devemos criar uma funcao que trate esta leitura, será como o primeiro loop.
+
+Ao final nao utilizamos um segundo loop, vamos processar tudo com a antiga funcao read_join que agora se chama ready_to_read, tiramos a funcao foundnl de dentro do primeiro loop, pois de momento vamos processar dentro da funcao ready_to_read, esta funcao será capaz de anasizar o buffer quando contem \n ou nao. Adicionei uma nova funcao dentro de ready_to_read, que será uma funcao static(apenas me serve dentro de ready_to_read).
+Se foundnl(buffer) devolve 1, entao nossa variavel de retorno recebe o ponteiro retornado da funcao nova que se chama static with_nl(char *res, char *buffer, *read_check), dentro dela ja havera um malloc exato do tamanho de buffer ate \n, entao tudo feito, libero buffer e retorno res.
+
+buffer -> ho\nla
+buffer ->
+ho
