@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:02 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/11 11:03:16 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:34:59 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char    *develop(int fd)
     while(read_check > 0 && !foundnl(buffer))
     {
         read_check = read(fd, buffer, (BUFFER_SIZE + 1));
-        line = read_join(line, buffer, &read_check);
+        line = ready_to_read(line, buffer, &read_check);
         if (!buffer || !line || read_check < 0) 
             special_free(&buffer, &line);
     }

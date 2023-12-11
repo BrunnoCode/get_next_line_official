@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:52:23 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/11 12:06:22 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:23:06 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,23 @@
 int	ft_len(char *str, int *read_check)
 {
 	int	i;
-      
-    i = 0;
-    if (*read_check != -1)
-    {
-        if (!str)
-        {
-            str = malloc(sizeof(char) * 1);
-            if (!str)
-                return (*read_check = -1);
-        }
-        
-        while (str[i])
-            i++;
-	    return (i);
-    }
-    return (read_check);
+
+	i = 0;
+	if (*read_check != -1)
+	{
+		if (!str)
+		{
+			str = malloc(sizeof(char));
+			if (!str)
+				return (*read_check = -1);
+		}
+		while (str[i])
+			i++;
+		return (i);
+	}
+	return (*read_check);
 }
 /*
-#include <stdio.h>
-
 int	main(void)
 {
 	char	*str;
