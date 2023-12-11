@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:37:46 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/05 12:37:51 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/11 19:54:59 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*true_free(char **ptr)
 	return (NULL);
 }
 
-char	*update_storage(char *storage)
+/*char	*update_storage(char *storage)
 {
 	char	*new_storage;
 	int		i;
@@ -33,7 +33,7 @@ char	*update_storage(char *storage)
 	new_storage = ft_substr(storage, i, ft_strlen(storage));
 	free(storage);
 	return (new_storage);
-}
+}*/
 
 char	*fill_storage(int fd, char *storage)
 {
@@ -63,7 +63,22 @@ char	*fill_storage(int fd, char *storage)
 	return (storage);
 }
 
-char	*only_line(char	*storage)
+int main()
+{
+	int	fd;
+	static char *str = NULL;
+	fd = open("nota.txt", O_RDONLY);
+	fill_storage(fd, str);
+	printf("%s", str);
+	free(str);
+	close(fd);
+	return (0);
+}
+
+
+
+
+/*char	*only_line(char	*storage)
 {
 	char	*line;
 	int		i;
@@ -109,4 +124,4 @@ int main()
 			free(line);
 	}
 	return (0);
-}
+}*/
