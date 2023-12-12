@@ -40,4 +40,4 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 4-Verificamos se nossa static contem algo lidos
     *Se static nao tem nada, retornamos NULL.
 
-5-Ag
+5-Agvamoamo
