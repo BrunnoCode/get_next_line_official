@@ -6,7 +6,13 @@ Github: BrunnoCode
 A Funcao GNL retorna apenas ate um \n (salto de linha).
 Se a funcao é chamada em um loop, retornará todo conteúdo de um fd (File Descriptor, um file.txt por exemplo).
 
-#Lembrando que a funcao read(int fd, char *buffer_lectura, )
+#Lembrando que a funcao read(int fd, char *buffer_lectura, BUFFER_SIZE),
+sempre ler ate BUFFER_SIZE, exemplo visual:
+        int fd = 3 #Numero referente a localizacao do arquivo.
+        BUFFER_SIZE = 5
+        char *buffer_lectura = "hola'\n'buenos dias"
+        BUFFER_SIZE vai ler: 1="h", 2="o", 3="l", 4="a", 5='\n'
+        buffer_lectura vai receber = "hola'\n'" ('\n) -> nao e visivel.
 
 Temos o seguinto problema abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
 
@@ -25,7 +31,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
     
 
 2-Verificamos errores iniciais
-    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo)), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura.
+    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo)), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura e a funcao se acaba por aqui.
 
 3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser: funcao(int fd, char *static)
         char    *funcao(fd, static)
@@ -34,11 +40,21 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
                     *Criamos um char *buffer de leitura
                     *Criamos um int num_control que ira controlar erros e  quantidade de bytes lidos.
 
-                    *Nosso buffer de leitura recebe um malloc do tamanho que temos em nossa macro BUFFER_SIZE que esta definida no nosso get_next_line.h, BUFFER_SIZE pode ser qualquer quantidade numerica, numero que definira quantos bytes serao lidos. Ou seja malloc de BUFFER_SIZE + 1 (adicionamos +1 para o \0 no fim de cada string)
+                    *Nosso buffer de leitura recebe um malloc do tamanho que temos em nossa macro BUFFER_SIZE que está definida no nosso get_next_line.h, BUFFER_SIZE pode ser qualquer quantidade numerica, numero que definira quantos bytes serao lidos. Ou seja malloc de BUFFER_SIZE + 1 (adicionamos +1 para o \0 no fim de cada string)
 
                     *Verificamos se o malloc retornou corretamente.
-                        Se buffer nao tem memoria reservada, liberamos nossa statica com a funcao de free especial, algo assim: my_free(&static); em seguida retornamos NULL. Tudo se acaba por aqui.
+                        Se buffer nao tem memoria reservada, entao é um erro, liberamos nossa statica com a funcao de free especial, algo assim: my_free(&static); em seguida retornamos NULL. Tudo se acaba por aqui.
                     
+                    *Se nao deu erro no passo anterior, entao asignamos o primeiro indice de buffer_lectura \0, para limpar qualquer caracter que tenha por azar, pois se tiver um \n dentro, nao acederemos á funcao() seguinte.
+                    *Tambem inicializamos nosso num_control com 1, para poder entrar no seguinte loop.
+
+                    *Fazemos entao um loop while()
+                      -Enquanto: 
+                        num_control seja maior que 0 e nao encontremos um \n dentro de buffer_lectura...Faremos:
+                            num_control recebe o resultado numerico da 
+                            funcao read(vai retornar quantas letras leu, ou seja: a quantidade de BUFFER_SIZE valor em numero, e vai escreve-las dentro de buffer_lectura em caracteres)
+
+                      *Verificamos se num_control é -1, isto que dizer que nossa funcao read(-1) encontrou um erro e nada foi lido. Entao com este resultado, liberamos buffer_lectura com free() normal, e retornamos liberando com my_free(&static), pois nossa static pode haver datos lidos ex: return(my_free(&static)).
                 }
 
 4-Verificamos se nossa static contem algo lido
