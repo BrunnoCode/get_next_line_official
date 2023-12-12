@@ -33,7 +33,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 2-Verificamos errores iniciais
     *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo)), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura e a funcao se acaba por aqui.
 
-3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser: funcao(int fd, char *static)
+3-Nossa static recebe um punteiro char * que provém de uma funcao que retornará a concatenacao da proxima leitura até \n. Passamos fd como argumento da funcao porque dentro iremos usar read(funcao standar de leitura) O prototipo desta funcao pode ser: funcao(int fd, char *static)
         char    *funcao(fd, static)
                 {
                     #Aqui criamos la logica
@@ -55,7 +55,11 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
                             funcao read(vai retornar quantas letras leu, ou seja: a quantidade de BUFFER_SIZE valor em numero, e vai escreve-las dentro de buffer_lectura em caracteres)
 
                       *Verificamos se num_control é -1, isto que dizer que nossa funcao read(-1) encontrou um erro e nada foi lido. Entao com este resultado, liberamos buffer_lectura com free() normal, e retornamos liberando com my_free(&static), pois nossa static pode haver datos lidos ex: return(my_free(&static)).
+
+                      *Se o num_control é maior que 0, entao obtemos leitura e nosso buffer_lectura tem conteúdo, entao adicionamos um '\0' no indice final de buffer_lectura, assim indicamos que finalizamos uma string. Em seguida nossa static recebe um strjoin(static, buffer_lectura) salvando um pedaço de linha lida e também temos um checkpoint da ultima leitura, porque o proximo passo será cortar o resultado lido até o primeiro \n.
                 }
+                *Liberamos(buffer_lectura);
+                *retornamos(static);
 
 4-Verificamos se nossa static contem algo lido
     *Se static nao tem nada, retornamos NULL.
@@ -64,6 +68,19 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
     *linha de retorno recebe um ponteiro char * do retorno de uma funcao que vai processar os datos lidos da nossa static
      -  linha = funcao(static)
         {
+            *Criamos um novo char *line, para manipular a transferência de static -> line.
+            *Criamos um indice inteiro (int i = 0), iniciamos a 0, pois pode conter numeros aleatorios.
+
+            *Verificamos se existe nossa static, para garantir que nao iremos cometer erros, caso nao exista, simplesmente retorna NULL, e Tudo se acaba por aqui.
+
+            *Se static tem conteúdo, entao fazemos um loop while():
+                -Enquanto: 
+                   Nossa static na posicao de i nao seja igual a \n e também nao seja o fim da static:
+                   somamos valor a i, i += 1, ou um atalho: i++;
+                   chegamos a nao cumprir com a condiçao?, o loop quebra, mas devemos somar i uma vez mais, porque queremos guardar \n e prevenir que \0 enteja depois de \n.
+                
+                *Saindo do loop finalizado completamente ou interrompido, entao fazemos um substring de static desde o inicio até o ultimo valor de i. O prototipo da funcao é substring(char *static, posicao inicial da string que é 0, e passmos i que terá um valor que foi somado);
+                
 
         }
     *Se linha nao leu nada
@@ -85,4 +102,4 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 7-Finalmente retornamos linha de retorno.
     return (line);
 
-    
+
