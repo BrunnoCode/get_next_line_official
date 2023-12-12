@@ -6,6 +6,8 @@ Github: BrunnoCode
 A Funcao GNL retorna apenas ate um \n (salto de linha).
 Se a funcao é chamada em um loop, retornará todo conteúdo de um fd (File Descriptor, um file.txt por exemplo).
 
+#Lembrando que a funcao read(int fd, char *buffer_lectura, )
+
 Temos o seguinto problema abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
 
 buffer -> ho\nla
@@ -23,9 +25,9 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
     
 
 2-Verificamos errores iniciais
-    *Se BUFFER_SIZE iguala a 0 ou seja menor que 0, ou se a funcao read() nao encontra fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura.
+    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo)), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura.
 
-3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser funcao(int fd, char *static)
+3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser: funcao(int fd, char *static)
         char    *funcao(fd, static)
                 {
                     #Aqui criamos la logica
