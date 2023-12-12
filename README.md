@@ -1,4 +1,8 @@
-#README Brunno W Rocha
+#README Por: Brunno W Rocha
+#Get_next_line
+
+versao: 1.1
+
 Github: BrunnoCode
 
 #README GNL PARA INICIANTES E QUEM TEM DIFICULDADES DE CRIAR ALGORITMOS.
@@ -23,7 +27,7 @@ buffer -> Hola\n + \0<- #Sempre adicionamos '\0' no final de toda String
 
 CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
-1-Primeiro declaramos uma variavel static, esta que, por sua vez guardara sempre as ultimas letras lidas.
+1-Primeiro declaramos uma variavel static, esta que, por sua vez guardara sempre as ultimas letras lidas, neste guia irei usar o nome static que é o tipo da variável, mas na realidade sería algo assim: static char *variavel.
 *Pode receber um tamanho definido static[BUFFER_SIZE + 1]
 *Ou pode reinicializa-la com NULL.
 
@@ -81,22 +85,45 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
                 
                 *Saindo do loop finalizado completamente ou interrompido, entao fazemos um substring de static desde o inicio até o ultimo valor de i. O prototipo da funcao é substring(char *static, posicao inicial da string que é 0, e passmos i que terá um valor que foi somado);
                 
+                *Retornamos line.
 
         }
+    #Agora linha pode ter lido algo ou nao.
+
     *Se linha nao leu nada
       -liberamos static e entao retornamos NULL.
-        podemos usar um free() especial se quiser
+        podemos usar um free() ou um especial_free se quiser personalizar, e Tudo se acaba por aqui.
+    
+    *Caso linha tenha recebido corretamente o resultado da funcao anterior entao vamos ao passo 6 a seguir.
 
 6-Nossa static agora recebe um char * de uma funcao que vai atualizar o valor da static, esta atualizacao ocorre para apagar ate o primeiro \n encontrado e guardar apenas o que sobrou, lembrando que devemos sempre adicionar um \0 no final da string sobrante. O prototipo sera char *funcao(char *static)
    
      *Assim seria em codigo:
-        static = funcao(static);
+        static = funcao_atualizar_static(static);
 
-        Exemplo do que faz a funcao(static)
+        Exemplo do que faz a funcao_atualizar_static(static)
 
             char    *funcao(char *static)
             {
                 #Aplicamos a logica aqui.
+
+                *Criamos uma nova variável de retorno de tipo char *nova_linha.
+                *Criamos tambem um indice para contar posicoes: (int i = 0).
+
+                  Nosso indice i vale 0;
+
+                  fazemos um controle se static existe, se static nao tem valor nenhum, retornamos NULL, e tudo termina por aqui.
+                  
+                  *Caso contrário iremos iniciar um loop while() com as seguintes condicoes:
+                    -Enquanto: 
+                       static na posicao de i, ou seja, posicao inicial, é diferente de \n e também nao chegou ao indice final, entao:
+                            somamos i =+ 1;
+                    *Completamos o loop ou foi interrompido, somamos i =+ 1 denovo, porque queremos garantir que \n esteja dentro da static, para logo fazer uma substring(static, i, strlen(static)), o valor retornado por esta substring será recebido por nova_linha, feito isto liberamos static com free(static), e retornamos nova_linha que conterá o valor sobrado que estava após o primeiro \n
+                    exemplo: 
+                            imagine que temos: "Ola'\n'tudo";
+                            linha leu e retornou: "Ola'\n'"; #Oquê faremos com o resto?
+                            Exatamente o que esta funcao faz:
+                              nova_linha conterá: "tudo"
             }
 
 7-Finalmente retornamos linha de retorno.
