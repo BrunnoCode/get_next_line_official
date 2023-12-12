@@ -4,6 +4,7 @@ int foundnl(char *buffer)
 {
     int i;
 
+    i = 0;
     while(buffer[i])
     {
         if(buffer[i] == '\n')

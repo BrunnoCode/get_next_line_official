@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:02 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/11 20:12:02 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:34:54 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 char    *develop(int fd)
 {
-    static char *line = NULL;
+    static char *line[BUFFER_SIZE + 1];
     char    *buffer;
-    ssize_t read_check;
+    //char    *line_return;
+    int read_check;
     
     read_check = 1;
     if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
@@ -30,7 +31,8 @@ char    *develop(int fd)
         line = ready_to_read(line, buffer, &read_check);
         if (!buffer || !line || read_check < 0) 
             special_free(&buffer, &line);
-        
+       // if (foundnl(line))
+           // line = words_aft_newline(line, &buffer, &read_check);
     }
     return (line);
 }

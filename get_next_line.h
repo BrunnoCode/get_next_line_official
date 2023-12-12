@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:34:15 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/11 12:14:42 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:12:41 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char	*develop(int fd);
 void	*special_free(char **ptr, char **ptr2);
 int		foundnl(char *buffer);
 int		ft_len(char *str, int *read_check);
+char	*ready_to_read(char *line, char *buffer, int *read_check);
 
 #endif

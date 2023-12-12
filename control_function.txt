@@ -20,3 +20,24 @@ Temos o seguinto erro abaixo, imagine que nosso buffer no processo de leitura se
 buffer -> ho\nla
 buffer ->
 ho
+
+CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
+
+1-Primeiro declaramos uma variavel static 
+ Tambem criamos um char * para a linha de retorno final.
+    *Pode receber um tamanho definido static[BUFFER_SIZE + 1]
+    *Ou pode reinicializa-la com NULL.
+
+2-Verificamos errores iniciais
+    *Se BUFFER_SIZE iguala a 0 ou seja -1, se a funcao read() nao contra fd, entao retornamos NULL, nao ha nada para leitura
+
+3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser funcao(int fd, char *static)
+        char    *funcao(fd, static)
+                {
+
+                }
+
+4-Verificamos se nossa static contem algo lidos
+    *Se static nao tem nada, retornamos NULL.
+
+5-Ag

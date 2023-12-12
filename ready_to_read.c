@@ -1,39 +1,38 @@
 #include "get_next_line.h"
 
-static char	*with_nl(char *res, char *buffer, int *read_check)
-{
-	int	i;
-	int	j;
-
-	if (read_check)
-	{
-	}
-	return (NULL);
-}
-
 char	*ready_to_read(char *line, char *buffer, int *read_check)
 {
 	char	*res;
+	int	i;
+	int	j;
 
-	if (foundnl(buffer))
-	{
-		res = with_nl(res, buffer, *read_check);
-		free(buffer);
-		return (res);
-	}
 	if (*read_check >= 0 && buffer)
 	{
-		res = malloc(sizeof(char) * (ft_len(line, *read_check) + ft_len(buffer, *read_check) + 1));
+		res = malloc(sizeof(char) * (ft_len(line, read_check) + ft_len(buffer, read_check) + 1));
 		if (!res || *read_check < 0)
 		{
 			special_free(&res, &buffer);
-			if (line)
-				free(line);
-			line = NULL;
-			return (NULL);
+			return (special_free(&line, &buffer));
 		}
-		res = no_nl(line, buffer, *read_check) // PARAMOS AQUI DIA 11/12  20:20H
+		i = -1;
+		while (line[++i])
+			res[i] = line[i];
+		j = -1;
+		while (buffer[++j])
+			res[i + j] = buffer[j];
+		special_free(&line, &buffer);
+		return (res);
 	}
 	free(buffer);
 	return (NULL);
 }
+/*
+int	main()
+{
+	char *line = "hola";
+	char *buffer = "buenos dias";
+	int	read_check = 1;
+	char *res = ready_to_read(line, buffer, &read_check);
+	printf("\n%sres->\n%dcheck->", res, read_check);
+	return 0;
+}*/

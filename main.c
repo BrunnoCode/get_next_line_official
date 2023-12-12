@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:44:42 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/08 00:34:35 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:13:40 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	main(void)
 		return (0);
 	do
 	{
-		line = get_next_line(fd);
+		line = develop(fd);
+		//line = get_next_line(fd);
 		if (line)
 		{
 			printf("%s", line);
