@@ -1,3 +1,10 @@
+#README Brunno W Rocha
+Github: BrunnoCode
+
+#README GNL PARA INICIANTES E QUEM TEM DIFICULDADES DE CRIAR ALGORITMOS.
+
+A Funcao GNL retorna apenas ate um \n (salto de linha).
+Se a funcao é chamada em um loop, retornará todo conteúdo de um fd (File Descriptor, um file.txt por exemplo).
 
 Temos o seguinto problema abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
 
@@ -8,18 +15,28 @@ buffer -> Hola\n + \0<- #Sempre adicionamos '\0' no final de toda String
 
 CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
-1-Primeiro declaramos uma variavel static 
- Tambem criamos um char * para a linha de retorno final.
-    *Pode receber um tamanho definido static[BUFFER_SIZE + 1]
-    *Ou pode reinicializa-la com NULL.
+1-Primeiro declaramos uma variavel static, esta que, por sua vez guardara sempre as ultimas letras lidas.
+*Pode receber um tamanho definido static[BUFFER_SIZE + 1]
+*Ou pode reinicializa-la com NULL.
+
+*Tambem criamos um char *linha para a linha de retorno final.
+    
 
 2-Verificamos errores iniciais
-    *Se BUFFER_SIZE iguala a 0 ou seja -1, se a funcao read() nao contra fd, entao retornamos NULL, nao ha nada para leitura
+    *Se BUFFER_SIZE iguala a 0 ou seja menor que 0, ou se a funcao read() nao encontra fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura.
 
 3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser funcao(int fd, char *static)
         char    *funcao(fd, static)
                 {
                     #Aqui criamos la logica
+                    *Criamos um char *buffer de leitura
+                    *Criamos um int num_control que ira controlar erros e  quantidade de bytes lidos.
+
+                    *Nosso buffer de leitura recebe um malloc do tamanho que temos em nossa macro BUFFER_SIZE que esta definida no nosso get_next_line.h, BUFFER_SIZE pode ser qualquer quantidade numerica, numero que definira quantos bytes serao lidos. Ou seja malloc de BUFFER_SIZE + 1 (adicionamos +1 para o \0 no fim de cada string)
+
+                    *Verificamos se o malloc retornou corretamente.
+                        Se buffer nao tem memoria reservada, liberamos nossa statica com a funcao de free especial, algo assim: my_free(&static); em seguida retornamos NULL. Tudo se acaba por aqui.
+                    
                 }
 
 4-Verificamos se nossa static contem algo lido
