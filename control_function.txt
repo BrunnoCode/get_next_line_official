@@ -19,7 +19,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 3-Nossa static recebe um punteiro char * de uma funcao que retornara a quantidade de letras lidas de fd. O prototipo desta funcao pode ser funcao(int fd, char *static)
         char    *funcao(fd, static)
                 {
-
+                    #Aqui criamos la logica
                 }
 
 4-Verificamos se nossa static contem algo lido
@@ -33,5 +33,19 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
         }
     *Se linha nao leu nada
       -liberamos static e entao retornamos NULL.
+        podemos usar um free() especial se quiser
 
-6
+6-Nossa static agora recebe um char * de uma funcao que vai atualizar o valor da static, esta atualizacao ocorre para apagar ate o primeiro \n encontrado e guardar apenas o que sobrou, lembrando que devemos sempre adicionar um \0 no final da string sobrante. O prototipo sera char *funcao(char *static)
+   
+     *Assim seria em codigo:
+        static = funcao(static);
+
+        Exemplo do que faz a funcao(static)
+
+            char    *funcao(char *static)
+            {
+                #Aplicamos a logica aqui.
+            }
+
+7-Finalmente retornamos linha de retorno.
+    return (line);

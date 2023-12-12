@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:37:46 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/12 15:57:49 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:14:27 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,6 @@ char	*fill_storage(int fd, char *storage)
 	free(buffer);
 	return (storage);
 }
-
-int main()
-{
-	int	fd;
-	static char *str = NULL;
-	fd = open("nota.txt", O_RDONLY);
-	fill_storage(fd, str);
-	printf("%s", str);
-	free(str);
-	close(fd);
-	return (0);
-}
-
-
-
-
 char	*only_line(char	*storage)
 {
 	char	*line;
