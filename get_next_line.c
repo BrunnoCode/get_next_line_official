@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:37:46 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/12 15:35:51 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:57:49 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	line = only_line(storage);
 	if (!line)
 	{
-		return (true_free(&storage));//paramos aqui 15:35 12/12
+		return (true_free(&storage));
 	}
 	storage = update_storage(storage);
 	return (line);

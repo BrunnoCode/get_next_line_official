@@ -1,25 +1,10 @@
-1: develop(int fd) funcao principal que será GNL original
 
-2: foundnl(char *buffer) funcao que detecta salto de linha
-
-3: read_join(char *buffer, int *read_check) funcao que concatena strings ja lidas do buffer e detecta erro devolvendo read_check -1
-
-4: special_free(char *s1, char *s2) funcao void que libera memoria devido a erro.
-
-
-
-RESUMO DAS ATUALIZACOES
-
-Criamos um loop que faz leitura continua e verifica se foi detectado um salto de linha dentro da variável buffer que é passado como parametro na funcao read, a funcao foundnl() devolve 1 caso houver salto de linha, entao o loop quebra, mas sabemos que entre os caracteres lidos dentro de buffer pode haver \n bem ao meio, entao devemos criar uma funcao que trate esta leitura, será como o primeiro loop.
-
-Ao final nao utilizamos um segundo loop, vamos processar tudo com a antiga funcao read_join que agora se chama ready_to_read, tiramos a funcao foundnl de dentro do primeiro loop, pois de momento vamos processar dentro da funcao ready_to_read, esta funcao será capaz de anasizar o buffer quando contem \n ou nao. Adicionei uma nova funcao dentro de ready_to_read, que será uma funcao static(apenas me serve dentro de ready_to_read).
-Se foundnl(buffer) devolve 1, entao nossa variavel de retorno recebe o ponteiro retornado da funcao nova que se chama static with_nl(char *res, char *buffer, *read_check), dentro dela ja havera um malloc exato do tamanho de buffer ate \n, entao tudo feito, libero buffer e retorno res.
-
-Temos o seguinto erro abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
+Temos o seguinto problema abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
 
 buffer -> ho\nla
-buffer ->
-ho
+buffer -> com\n\nest\nas
+buffer -> \n
+buffer -> Hola\n + \0<- #Sempre adicionamos '\0' no final de toda String
 
 CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
@@ -42,10 +27,11 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
 5-Agora utilizamos nossa variavel char *linha de retorno
     *linha de retorno recebe um ponteiro char * do retorno de uma funcao que vai processar os datos lidos da nossa static
-        linha = funcao(static)
+     -  linha = funcao(static)
         {
 
         }
-    *Se linha nao leu nada, entao retornamos NULL.
+    *Se linha nao leu nada
+      -liberamos static e entao retornamos NULL.
 
 6
