@@ -37,7 +37,15 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
                 }
 
-4-Verificamos se nossa static contem algo lidos
+4-Verificamos se nossa static contem algo lido
     *Se static nao tem nada, retornamos NULL.
 
-5-Agvamoamo
+5-Agora utilizamos nossa variavel char *linha de retorno
+    *linha de retorno recebe um ponteiro char * do retorno de uma funcao que vai processar os datos lidos da nossa static
+        linha = funcao(static)
+        {
+
+        }
+    *Se linha nao leu nada, entao retornamos NULL.
+
+6
