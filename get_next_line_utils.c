@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atudor <atudor@student.42barcelon>         +#+  +:+       +#+        */
+/*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 20:27:20 by atudor            #+#    #+#             */
-/*   Updated: 2023/10/22 17:45:11 by atudor           ###   ########.fr       */
+/*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
+/*   Updated: 2023/12/13 18:02:32 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -35,7 +35,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
     
 
 2-Verificamos errores iniciais
-    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo) que é a quantidade lidas segundo o que vale BUFFER_SIZE), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura e a funcao se acaba por aqui.
+    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo) que é a quantidade lidas segundo o que vale BUFFER_SIZE), read(0) terminou de ler tudo em fd, entao retornamos NULL em 2 destes casos: read(-1) ou read(0), nao ha nada para leitura e a funcao se acaba por aqui.
 
 3-Nossa static recebe um punteiro char * que provém de uma funcao que retornará a concatenacao da proxima leitura até \n. Passamos fd como argumento da funcao porque dentro iremos usar read(funcao standar de leitura) O prototipo desta funcao pode ser: funcao(int fd, char *static)
         char    *funcao(fd, static)
@@ -46,10 +46,10 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
                     *Nosso buffer de leitura recebe um malloc do tamanho que temos em nossa macro BUFFER_SIZE que está definida no nosso get_next_line.h, BUFFER_SIZE pode ser qualquer quantidade numerica, numero que definira quantos bytes serao lidos. Ou seja malloc de BUFFER_SIZE + 1 (adicionamos +1 para o \0 no fim de cada string)
 
-                    *Verificamos se o malloc retornou corretamente.
+                    *Verificamos se o malloc reservou memória corretamente.
                         Se buffer nao tem memoria reservada, entao é um erro, liberamos nossa statica com a funcao de free especial, algo assim: my_free(&static); em seguida retornamos NULL. Tudo se acaba por aqui.
                     
-                    *Se nao deu erro no passo anterior, entao asignamos o primeiro indice de buffer_lectura \0, para limpar qualquer caracter que tenha por azar, pois se tiver um \n dentro, nao acederemos á funcao() seguinte.
+                    *Se nao deu erro no passo anterior, entao asignamos o primeiro indice de buffer_lectura \0, para limpar qualquer caracter que tenha por azar, pois se tiver um \n dentro, nao acederemos a condicional do loop seguinte.
                     *Tambem inicializamos nosso num_control com 1, para poder entrar no seguinte loop.
 
                     *Fazemos entao um loop while()
