@@ -35,7 +35,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
     
 
 2-Verificamos errores iniciais
-    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo)), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura e a funcao se acaba por aqui.
+    *Se BUFFER_SIZE iguala a 0, ou seja menor que 0, ou se a funcao read() nao encontra fd retornando um valor de -1, a funcao read() tem 3 valores de rotorno que sao: read(-1) nao leu = error, read(n(qualquer numero positivo) que é a quantidade lidas segundo o que vale BUFFER_SIZE), read(0) terminou de ler tudo em fd, entao retornamos NULL em todos estes casos, nao ha nada para leitura e a funcao se acaba por aqui.
 
 3-Nossa static recebe um punteiro char * que provém de uma funcao que retornará a concatenacao da proxima leitura até \n. Passamos fd como argumento da funcao porque dentro iremos usar read(funcao standar de leitura) O prototipo desta funcao pode ser: funcao(int fd, char *static)
         char    *funcao(fd, static)
