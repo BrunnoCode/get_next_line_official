@@ -1,7 +1,7 @@
 #README Por: Brunno W Rocha
 #Get_next_line
 
-versao: 1.1
+versao: 1.2 | 13/12/2023
 
 Github: BrunnoCode
 
@@ -15,10 +15,10 @@ sempre ler ate BUFFER_SIZE, exemplo visual:
         int fd = 3 #Numero referente a localizacao do arquivo.
         BUFFER_SIZE = 5
         char *buffer_lectura = "hola'\n'buenos dias"
-        BUFFER_SIZE vai ler: 1="h", 2="o", 3="l", 4="a", 5='\n'
-        buffer_lectura vai receber = "hola'\n'" ('\n) -> nao e visivel.
+        BUFFER_SIZE vai ler: 1="h", 2="o", 3="l", 4="a", 5='\n' #lembrando que neste caso aqui, BUFFER_SIZE = 5 #apenas conta numeros.
+        buffer_lectura vai receber = "hola'\n'" ('\n) -> nao e visivel, é o salto de linha.
 
-Temos o seguinto problema abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
+Temos o seguinte problema abaixo, imagine que nosso buffer no processo de leitura seja: buffer[bon|/n|/n|dia] ? como salvaremos a ultima posicao?
 
 buffer -> ho\nla
 buffer -> com\n\nest\nas
