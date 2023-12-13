@@ -1,3 +1,5 @@
+
+/*
 #include "get_next_line.h"
 
 char	*ready_to_read(char *line, char *buffer, int *read_check)

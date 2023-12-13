@@ -6,11 +6,11 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:33:02 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/12 15:54:43 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:38:25 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+/*#include "get_next_line.h"
 
 char    *develop(int fd)
 {

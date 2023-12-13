@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   special_free.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 12:14:07 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/11 17:46:51 by bbotelho         ###   ########.fr       */
+/*   Created: 2023/11/13 12:44:42 by bbotelho          #+#    #+#             */
+/*   Updated: 2023/12/13 18:39:24 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "get_next_line.h"
 
-void    *special_free(char **pt1, char **pt2)
+int	main(void)
 {
-    if(*pt1)
-    {
-        free(*pt1);
-        pt1 = NULL;
-    }
-    if(*pt2)
-    {
-        free(*pt2);
-        pt2 = NULL;
-    }
-    return (NULL);
+	int		fd;
+	char	*line;
+
+	fd = open("nota.txt", O_RDONLY);
+	if (fd == -1)
+		return (0);
+	do
+	{
+		line = develop(fd);
+		//line = get_next_line(fd);
+		if (line)
+		{
+			printf("%s", line);
+			free(line);
+		}
+	} while (line);
+	close(fd);
+	return (0);
 }

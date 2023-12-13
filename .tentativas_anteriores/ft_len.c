@@ -6,10 +6,11 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:52:23 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/12 12:36:53 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:38:59 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "get_next_line.h"
 
 int	ft_len(char *str, int *read_check)
