@@ -56,7 +56,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
                       -Enquanto: 
                         num_control seja maior que 0 e nao encontremos um \n dentro de buffer_lectura...Faremos:
                             num_control recebe o resultado numerico da 
-                            funcao read(vai retornar quantas letras leu, ou seja: a quantidade de BUFFER_SIZE valor em numero, e vai escreve-las dentro de buffer_lectura em caracteres)
+                            funcao read(vai retornar quantas letras leu, ou seja: a quantidade de BUFFER_SIZE valor em numero, e vai escrevê-las dentro de buffer_lectura em caracteres)
 
                       *Verificamos se num_control é -1, isto que dizer que nossa funcao read(-1) encontrou um erro e nada foi lido. Entao com este resultado, liberamos buffer_lectura com free() normal, e retornamos liberando com my_free(&static), pois nossa static pode haver datos lidos ex: return(my_free(&static)).
 
