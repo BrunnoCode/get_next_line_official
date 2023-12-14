@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 23:34:15 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/13 20:27:36 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:48:53 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ready_to_read(int fd, char *checkpoint);
+char	*special_free(char **checkpoint);
+char	*str_join(char *s1, char *s2);
+char	*sub_str(char const *s, unsigned int start, size_t len);
+int		ft_len(char *str);
+int		found_nl(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:20:54 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:45:56 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	found_nl(char *s)
 	return (0);
 }
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*sub_str(char const *s, unsigned int start, size_t len)
 {
 	size_t	size;
 	size_t	i;
