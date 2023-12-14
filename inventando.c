@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   inventando.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:03:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/14 01:22:22 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/14 01:36:21 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ char    *get_next_line(int fd)
 {
     static char *checkpoint[BUFFER_SIZE + 1];
     char    *line;
+    char    *rest;
    
     line = NULL;
     if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
         return (NULL);
     checkpoint = ready_to_read(fd, checkpoint);
-    while (bytes_read > 0 && !found_nl(checkpoint))
+    while (bytes_read > 0)
     {
         bytes_read = read(fd, checkpoint, BUFFER_SIZE);
         create_line(&line, &checkpoint);
