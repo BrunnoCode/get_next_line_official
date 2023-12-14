@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:03:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:47:21 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 00:52:34 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	clean_alloc(char **buffer)
 		return (-1);
 	}
 	while (i-- > 0)
-		*buffer[i] = '\0';
+		(*buffer)[i] = '\0';
 	buffer = NULL;
 	return (1);
 }
@@ -44,7 +44,8 @@ char	*create_line(int fd, char *checkpoint)
 			free(buffer);
 			return (special_free(&checkpoint), NULL);
 		}
-		checkpoint = str_join(checkpoint, buffer);
+		if (bytes_read > 0)
+			checkpoint = str_join(checkpoint, buffer);
 	}
 	if (!buffer)
 		return (NULL);
@@ -75,7 +76,7 @@ char	*save_checkpoint(char *checkpoint)
 	if (!checkpoint)
 		return (NULL);
 	i = 0;
-	while (checkpoint[i] != '\n' && checkpoint[i])
+	while (checkpoint[i] != '\n' && checkpoint[i] != '\0')
 		i++;
 	i++;
 	new_checkpoint = sub_str(checkpoint, i, ft_len(checkpoint));
@@ -85,10 +86,9 @@ char	*save_checkpoint(char *checkpoint)
 
 char	*get_next_line(int fd)
 {
-	static char	*checkpoint;
+	static char	*checkpoint = NULL;
 	char		*line;
 
-	checkpoint = NULL;
 	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	checkpoint = create_line(fd, checkpoint);
