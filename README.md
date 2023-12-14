@@ -1,7 +1,7 @@
 #README Por: Brunno W Rocha
 #Get_next_line
 
-versao: 1.2 | 13/12/2023
+versao: 1.3 | 14/12/2023
 
 Github: BrunnoCode
 
@@ -60,7 +60,9 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
 
                       *Verificamos se num_control é -1, isto que dizer que nossa funcao read(-1) encontrou um erro e nada foi lido. Entao com este resultado, liberamos buffer_lectura com free() normal, e retornamos liberando com my_free(&static), pois nossa static pode haver datos lidos ex: return(my_free(&static)).
 
-                      *Se o num_control é maior que 0, entao obtemos leitura e nosso buffer_lectura tem conteúdo, entao adicionamos um '\0' no indice final de buffer_lectura, assim indicamos que finalizamos uma string. Em seguida nossa static recebe um strjoin(static, buffer_lectura) salvando um pedaço de linha lida e também temos um checkpoint da ultima leitura, porque o proximo passo será cortar o resultado lido até o primeiro \n.
+                      *Se o num_control é maior que 0, entao obtemos leitura e nosso buffer_lectura tem conteúdo, entao adicionamos um '\0' no indice final de buffer_lectura, assim indicamos que finalizamos uma string.
+                      
+                       Em seguida nossa static recebe um strjoin(static, buffer_lectura) salvando um pedaço de linha lida e também temos um checkpoint da ultima leitura, porque o proximo passo será cortar o resultado lido até o primeiro \n.
                 }
                 *Liberamos(buffer_lectura);
                 *retornamos(static);
@@ -81,7 +83,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
                 -Enquanto: 
                    Nossa static na posicao de i nao seja igual a \n e também nao seja o fim da static:
                    somamos valor a i, i += 1, ou um atalho: i++;
-                   chegamos a nao cumprir com a condiçao?, o loop quebra, mas devemos somar i uma vez mais, porque queremos guardar \n e prevenir que \0 enteja depois de \n.
+                   chegamos a nao cumprir com a condiçao?, o loop quebra, mas devemos somar i uma vez mais, porque queremos guardar \n e prevenir que \0 esteja depois de \n.
                 
                 *Saindo do loop finalizado completamente ou interrompido, entao fazemos um substring de static desde o inicio até o ultimo valor de i. O prototipo da funcao é substring(char *static, posicao inicial da string que é 0, e passmos i que terá um valor que foi somado);
                 
@@ -121,7 +123,7 @@ CONSTRUINDO UM ALGORITMO DE UM GET_NEXT_LINE FUNCIONAL
                     *Completamos o loop ou foi interrompido, somamos i =+ 1 denovo, porque queremos garantir que \n esteja dentro da static, para logo fazer uma substring(static, i, strlen(static)), o valor retornado por esta substring será recebido por nova_linha, feito isto liberamos static com free(static), e retornamos nova_linha que conterá o valor sobrado que estava após o primeiro \n
                     exemplo: 
                             imagine que temos: "Ola'\n'tudo";
-                            linha leu e retornou: "Ola'\n'"; #Oquê faremos com o resto?
+                            linha leu e retornou: "Ola'\n'"; #O quê faremos com o resto?
                             Exatamente o que esta funcao faz:
                               nova_linha conterá: "tudo"
             }
