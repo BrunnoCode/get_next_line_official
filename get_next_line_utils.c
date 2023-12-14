@@ -6,23 +6,31 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/13 18:02:32 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:20:54 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *str)
+char    *special_free(char **checkpoint)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
+    free(*checkpoint);
+    *checkpoint = NULL;
+    checkpoint = NULL;
+    return (*checkpoint);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+int ft_len(char *str)
+{
+    int i;
+    
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+}
+
+char	*str_join(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -36,9 +44,9 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	res = malloc (sizeof(char) * ((ft_strlen(s1) + 1) + (ft_strlen(s2))));
+	res = malloc (sizeof(char) * ((ft_len(s1) + 1) + (ft_len(s2))));
 	if (!res)
-		return (true_free(&s1));
+		return (special_free(&s1));
 	i = -1;
 	while (s1[++i] != '\0')
 		res[i] = s1[i];
@@ -49,29 +57,21 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (res);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	found_nl(char *s)
 {
-	char		a;
-	const char	*x;
-	int			i;
-
-	a = (char)c;
+	int i;
+	
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
-		if (s[i] == a)
-		{
-			x = &s[i];
-			return ((char *)x);
-		}
+		if (s[i] == '\n')
+			return (1);
 		i++;
 	}
-	if (a == '\0')
-		return ((char *)&s[i]);
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	size_t	size;
 	size_t	i;
