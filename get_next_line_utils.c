@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/15 15:57:01 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:20:20 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ char	*str_join(char *s1, char *s2)
 	}
 	res = malloc(sizeof(char) * ((ft_len(s1) + 1) + (ft_len(s2))));
 	if (!res)
+	{
 		return (special_free(&s1));
+	}
 	i = -1;
 	while (s1[++i] != '\0')
 		res[i] = s1[i];

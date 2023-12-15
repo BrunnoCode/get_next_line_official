@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:03:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/15 15:50:32 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:24:40 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*create_line(int fd, char *checkpoint)
 
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
-		return (special_free(&checkpoint)); 
+		return (special_free(&checkpoint));
 	buffer[0] = '\0';
 	bytes_read = 1;
 	while (bytes_read > 0 && !found_nl(buffer))
@@ -39,6 +39,7 @@ char	*create_line(int fd, char *checkpoint)
 	free(buffer);
 	return (checkpoint);
 }
+
 char	*complete_line(char *checkpoint)
 {
 	char	*line;
@@ -55,6 +56,7 @@ char	*complete_line(char *checkpoint)
 		return (NULL);
 	return (line);
 }
+
 char	*save_checkpoint(char *checkpoint)
 {
 	char	*new_checkpoint;
@@ -68,7 +70,6 @@ char	*save_checkpoint(char *checkpoint)
 	i++;
 	new_checkpoint = sub_str(checkpoint, i, ft_len(checkpoint));
 	free(checkpoint);
-	checkpoint = NULL;
 	return (new_checkpoint);
 }
 
@@ -84,8 +85,9 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = complete_line(checkpoint);
 	if (!line)
+	{
 		return (special_free(&checkpoint));
-	
+	}
 	checkpoint = save_checkpoint(checkpoint);
 	return (line);
 }
