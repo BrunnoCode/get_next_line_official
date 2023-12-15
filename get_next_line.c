@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:03:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/15 00:52:34 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 01:25:29 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,19 @@ char	*create_line(int fd, char *checkpoint)
 	int		bytes_read;
 
 	bytes_read = clean_alloc(&buffer);
-	while (bytes_read > 0 && !found_nl(buffer))
+	if (buffer && bytes_read > 0)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0)
+		while (bytes_read > 0 && !found_nl(buffer))
 		{
-			free(buffer);
-			return (special_free(&checkpoint), NULL);
+			bytes_read = read(fd, buffer, BUFFER_SIZE);
+			if (bytes_read < 0)
+			{
+				free(buffer);
+				return (special_free(&checkpoint), NULL);
+			}
+			if (bytes_read > 0)
+				checkpoint = str_join(checkpoint, buffer);
 		}
-		if (bytes_read > 0)
-			checkpoint = str_join(checkpoint, buffer);
 	}
 	if (!buffer)
 		return (NULL);
@@ -60,7 +63,7 @@ char	*complete_line(char *checkpoint)
 	if (!checkpoint)
 		return (NULL);
 	i = 0;
-	while (checkpoint[i] != '\n' && checkpoint[i])
+	while (checkpoint[i] != '\n' && checkpoint[i] != '\0')
 		i++;
 	i++;
 	line = sub_str(checkpoint, 0, i);

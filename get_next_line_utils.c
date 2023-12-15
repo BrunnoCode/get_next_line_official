@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/14 20:45:56 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 01:28:34 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_len(char *str)
     int i;
     
     i = 0;
-    while (str[i])
+    while (str[i] != '\0')
         i++;
     return (i);
 }
@@ -39,7 +39,7 @@ char	*str_join(char *s1, char *s2)
 	j = 0;
 	if (!s1)
 	{
-		s1 = malloc(sizeof(char) * 1);
+		s1 = malloc(sizeof(char) * 2);
 		if (!s1)
 			return (NULL);
 		s1[0] = '\0';
@@ -62,7 +62,7 @@ int	found_nl(char *s)
 	int i;
 	
 	i = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		if (s[i] == '\n')
 			return (1);
