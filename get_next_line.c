@@ -6,29 +6,11 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:03:34 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/15 15:35:28 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:50:32 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-/*
-char	*clean_alloc(char *buffer)
-{
-	//int	i;
-	
-	
-	if (!buffer)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	//i = 0;
-	//while ((BUFFER_SIZE + 1) > i)
-	//	(*buffer)[i++] = '\0';
-	//buffer = NULL;
-	return (buffer);
-}*/
 
 char	*create_line(int fd, char *checkpoint)
 {
@@ -95,7 +77,7 @@ char	*get_next_line(int fd)
 	static char	*checkpoint = NULL;
 	char		*line;
 
-	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	checkpoint = create_line(fd, checkpoint);
 	if (!checkpoint)
@@ -103,6 +85,7 @@ char	*get_next_line(int fd)
 	line = complete_line(checkpoint);
 	if (!line)
 		return (special_free(&checkpoint));
+	
 	checkpoint = save_checkpoint(checkpoint);
 	return (line);
 }

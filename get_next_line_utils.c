@@ -6,27 +6,27 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/15 15:26:46 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:57:01 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *special_free(char **checkpoint)
+char	*special_free(char **checkpoint)
 {
-    free(*checkpoint);
-    *checkpoint = NULL;
-    return (*checkpoint);
+	free(*checkpoint);
+	*checkpoint = NULL;
+	return (*checkpoint);
 }
 
-int ft_len(char *str)
+int	ft_len(char *str)
 {
-    int i;
-    
-    i = 0;
-    while (str[i] != '\0')
-        i++;
-    return (i);
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
 
 char	*str_join(char *s1, char *s2)
@@ -43,7 +43,7 @@ char	*str_join(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	res = malloc (sizeof(char) * ((ft_len(s1) + 1) + (ft_len(s2))));
+	res = malloc(sizeof(char) * ((ft_len(s1) + 1) + (ft_len(s2))));
 	if (!res)
 		return (special_free(&s1));
 	i = -1;
@@ -58,8 +58,8 @@ char	*str_join(char *s1, char *s2)
 
 int	found_nl(char *s)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (s[i] != '\0')
 	{
