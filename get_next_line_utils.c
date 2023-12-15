@@ -6,7 +6,7 @@
 /*   By: bbotelho <bbotelho@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:02:25 by bbotelho          #+#    #+#             */
-/*   Updated: 2023/12/15 01:28:34 by bbotelho         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:26:46 by bbotelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char    *special_free(char **checkpoint)
 {
     free(*checkpoint);
     *checkpoint = NULL;
-    checkpoint = NULL;
     return (*checkpoint);
 }
 
@@ -39,7 +38,7 @@ char	*str_join(char *s1, char *s2)
 	j = 0;
 	if (!s1)
 	{
-		s1 = malloc(sizeof(char) * 2);
+		s1 = malloc(sizeof(char) * 1);
 		if (!s1)
 			return (NULL);
 		s1[0] = '\0';
